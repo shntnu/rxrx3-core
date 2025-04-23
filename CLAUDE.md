@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Dataset Details
 - RxRx3-core: 222,601 wells of cell images (CRISPR and compound perturbations)
 - 736 unique genes and 6,108 unique treatments
-- All analyses based on metadata_rxrx3_core.csv
+- All analyses based on metadata_rxrx3_core.csv file included in this repository
 
 ## Working with This Repository
 - Use DuckDB for all SQL queries: `duckdb -c "QUERY" metadata_rxrx3_core.csv`
@@ -22,10 +22,5 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Python: Follow PEP 8, use type hints, organize imports logically
 - Shell scripts: Document parameters and include error handling
 
-## Data Loading (Reference)
-```python
-from huggingface_hub import hf_hub_download
-import pandas as pd
-file_path_metadata = hf_hub_download("recursionpharma/rxrx3-core", filename="metadata_rxrx3_core.csv", repo_type="dataset")
-metadata = pd.read_csv(file_path_metadata)
-```
+## Note
+The metadata file (metadata_rxrx3_core.csv) is already included in this repository. No need to download it separately.

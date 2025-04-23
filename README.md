@@ -1,6 +1,6 @@
 # RxRx3-core Analysis
 
-This repository contains analysis tools and insights for the RxRx3-core dataset, with data sourced from [Hugging Face](https://huggingface.co/datasets/recursionpharma/rxrx3-core).
+This repository contains analysis tools and insights for the RxRx3-core dataset metadata.
 
 ## About the Dataset
 
@@ -18,14 +18,16 @@ For more information about the dataset, visit:
 
 ## Repository Purpose
 
-This repository was created to analyze the RxRx3-core metadata using Claude Code (Anthropic's AI coding assistant). It includes:
+This repository was created to analyze the RxRx3-core dataset metadata using Claude Code (Anthropic's AI coding assistant). It includes:
 
-1. **SQL Analysis File**: A comprehensive DuckDB SQL analysis file with embedded query outputs:
+1. **Metadata File**: The `metadata_rxrx3_core.csv` file containing all dataset metadata
+
+2. **SQL Analysis File**: A comprehensive DuckDB SQL analysis file with embedded query outputs:
    - `rxrx3_metadata_analysis.sql`: Contains carefully organized SQL queries for analyzing all aspects of the dataset
    - Each query includes actual output as comments showing exactly what to expect
    - Generated using `generate_annotated_sql.sh` which runs queries and captures outputs
 
-2. **Claude.md**: Guidelines for AI assistants working with this repository.
+3. **Claude.md**: Guidelines for AI assistants working with this repository.
 
 ## Dataset Insights
 
@@ -89,11 +91,7 @@ The largest experiments focus on compounds:
 
 To explore the metadata yourself:
 
-1. Download the metadata file from Hugging Face:
-   ```python
-   from huggingface_hub import hf_hub_download
-   file_path_metadata = hf_hub_download("recursionpharma/rxrx3-core", filename="metadata_rxrx3_core.csv", repo_type="dataset")
-   ```
+1. Clone this repository to get the `metadata_rxrx3_core.csv` file
 
 2. Install DuckDB and run the analysis queries:
    ```bash
@@ -125,4 +123,5 @@ When working with this dataset:
 ## Acknowledgments
 
 - Original dataset provided by Recursion Pharmaceuticals
+- Metadata sourced from [Hugging Face](https://huggingface.co/datasets/recursionpharma/rxrx3-core)
 - Analysis performed using Claude Code (Anthropic's AI coding assistant)
