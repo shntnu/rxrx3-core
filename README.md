@@ -20,10 +20,9 @@ For more information about the dataset, visit:
 
 This repository was created to analyze the RxRx3-core metadata using Claude Code (Anthropic's AI coding assistant). It includes:
 
-1. **SQL Query Collections**: DuckDB queries for analyzing the dataset metadata:
-   - `duckdb_queries.sql`: Basic exploration queries
-   - `improved_duckdb_queries.sql`: More detailed analysis
-   - `final_duckdb_queries.sql`: Advanced statistical insights
+1. **SQL Analysis File**: A comprehensive DuckDB SQL analysis file with embedded example outputs:
+   - `rxrx3_metadata_analysis.sql`: Contains carefully organized SQL queries for analyzing all aspects of the dataset
+   - Each query includes example output as comments so you know what to expect
 
 2. **Analysis Results**: The `rxrx3_core_insights.md` file provides a summary of key findings from the dataset metadata analysis.
 
@@ -51,9 +50,13 @@ To explore the metadata yourself:
    file_path_metadata = hf_hub_download("recursionpharma/rxrx3-core", filename="metadata_rxrx3_core.csv", repo_type="dataset")
    ```
 
-2. Use DuckDB to run the provided SQL queries:
+2. Install DuckDB and run the analysis queries:
    ```bash
+   # Run a specific query
    duckdb -c "SELECT COUNT(*) FROM read_csv_auto('metadata_rxrx3_core.csv');"
+   
+   # Run a section from the analysis file (example: perturbation type distribution)
+   duckdb -c "$(grep -A10 '-- 1.2 Perturbation type distribution' rxrx3_metadata_analysis.sql | grep -v '^--' | head -n 8)"
    ```
 
 ## Acknowledgments
