@@ -20,25 +20,70 @@ For more information about the dataset, visit:
 
 This repository was created to analyze the RxRx3-core metadata using Claude Code (Anthropic's AI coding assistant). It includes:
 
-1. **SQL Analysis File**: A comprehensive DuckDB SQL analysis file with embedded example outputs:
+1. **SQL Analysis File**: A comprehensive DuckDB SQL analysis file with embedded query outputs:
    - `rxrx3_metadata_analysis.sql`: Contains carefully organized SQL queries for analyzing all aspects of the dataset
-   - Each query includes example output as comments so you know what to expect
+   - Each query includes actual output as comments showing exactly what to expect
+   - Generated using `generate_annotated_sql.sh` which runs queries and captures outputs
 
-2. **Analysis Results**: The `rxrx3_core_insights.md` file provides a summary of key findings from the dataset metadata analysis.
+2. **Claude.md**: Guidelines for AI assistants working with this repository.
 
-3. **Claude.md**: Guidelines for AI assistants working with this repository.
+## Dataset Insights
 
-## Key Findings
+Our analysis of the metadata revealed the following insights:
 
-Through our analysis, we discovered:
+### Overview
 
-- The dataset contains 222,601 wells with 736 unique genes and 6,108 unique treatments
-- It's split between CRISPR (57%) and COMPOUND (43%) perturbations
-- All samples use HUVEC cell type (human umbilical vein endothelial cells)
-- The dataset includes 4 large compound experiments and 176 gene experiments
-- Compounds are tested at multiple concentration levels (0.0025μM through 10.0μM)
+The RxRx3-core dataset contains **222,601 wells** of 6-channel Cell Painting images, with the following key characteristics:
+- **736 unique genes** and **6,108 unique treatments**
+- **180 distinct experiments** across **48 unique plates**
+- **57.01% CRISPR perturbations** (126,900 wells) and **42.99% COMPOUND perturbations** (95,701 wells)
+- All samples use **HUVEC cell type** (human umbilical vein endothelial cells)
 
-For detailed insights, see the `rxrx3_core_insights.md` file.
+### Experiment Structure
+
+The dataset has two main experiment types:
+- **GENE experiments (176)**: Average of 15.5 genes and 67.3 treatments per experiment
+- **COMPOUND experiments (4)**: Average of 445.3 treatments per experiment with 9 concentration levels
+
+Experiment size distribution:
+- Most experiments (153) are medium-sized (500-999 wells)
+- Only 3 experiments are very large (10,000+ wells), but they account for 89,020 wells (40% of the dataset)
+- The largest experiment (compound-003) contains 39,664 wells
+
+### Control Samples
+
+Control samples make up a significant portion of the dataset:
+- **25,312 EMPTY_control gene wells** (11.4% of all wells)
+- **35,546 EMPTY_control treatment wells** (16.0% of all wells)
+- **22,062 CRISPR_control treatment wells** (9.9% of all wells)
+
+### Compound Data
+
+Compound perturbations have several concentration levels:
+- Most common concentrations: **0.25 μM** (12.04% of compound wells) and **2.5 μM** (12.02%)
+- **1,674 unique compounds with SMILES notation** in 63,405 wells
+- Each compound appears in an average of 37.88 wells
+- Most compounds are tested at 8 different concentration levels across 4 experiments
+
+### CRISPR Perturbations
+
+CRISPR perturbations target specific genes:
+- **Top genes**: PLK1 (9,471 wells) and MTOR (9,456 wells)
+- Beyond controls, these two genes account for 15% of all CRISPR perturbations
+- The most studied genes (PLK1, MTOR, SRC, EIF3H, HCK) appear in all 176 gene experiments
+- There's a distinct tier of genes that appear in only a small number of experiments (2.27%)
+
+### Dataset Structure
+
+The dataset is organized into experiments that follow naming patterns:
+- `gene-XXX`: CRISPR gene perturbation experiments (176 experiments)
+- `compound-XXX`: Small molecule compound experiments (4 experiments)
+
+The largest experiments focus on compounds:
+1. compound-003: 39,664 wells, 877 unique treatments
+2. compound-001: 28,231 wells, 522 unique treatments
+3. compound-004: 21,125 wells, 290 unique treatments
+4. compound-002: 6,681 wells, 92 unique treatments
 
 ## Using This Repository
 
@@ -58,6 +103,24 @@ To explore the metadata yourself:
    # Run a section from the analysis file (example: perturbation type distribution)
    duckdb -c "$(grep -A10 '-- 1.2 Perturbation type distribution' rxrx3_metadata_analysis.sql | grep -v '^--' | head -n 8)"
    ```
+
+3. Generate your own annotated SQL file:
+   ```bash
+   # Make the script executable if needed
+   chmod +x generate_annotated_sql.sh
+   
+   # Run the script to generate an annotated SQL file with your current data
+   ./generate_annotated_sql.sh
+   ```
+
+## Usage Notes
+
+When working with this dataset:
+1. Be aware of the high proportion of control wells (over 37%)
+2. Consider the concentration variations in compound experiments
+3. Leverage the SMILES notation for chemical structure analysis
+4. Note that all experiments use the same cell type (HUVEC)
+5. Compound experiments are fewer but larger than gene experiments
 
 ## Acknowledgments
 
