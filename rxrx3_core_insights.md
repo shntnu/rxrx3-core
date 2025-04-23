@@ -32,14 +32,15 @@ Compound perturbations have several concentration levels:
 - Most common concentrations: **0.25 μM** (12.04% of compound wells) and **2.5 μM** (12.02%)
 - **1,674 unique compounds with SMILES notation** in 63,405 wells
 - Each compound appears in an average of 37.88 wells
-- Most compounds are tested at **7-8 different concentration levels** across 4 experiments
+- Most compounds are tested at 8 different concentration levels across 4 experiments
 
 ## CRISPR Perturbations
 
 CRISPR perturbations target specific genes:
 - **Top genes**: PLK1 (9,471 wells) and MTOR (9,456 wells)
 - Beyond controls, these two genes account for 15% of all CRISPR perturbations
-- Most genes appear in multiple experiments for validation
+- The most studied genes (PLK1, MTOR, SRC, EIF3H, HCK) appear in all 176 gene experiments
+- There's a distinct tier of genes that appear in only a small number of experiments (2.27%)
 
 ## Dataset Structure
 
@@ -61,3 +62,5 @@ When working with this dataset:
 3. Leverage the SMILES notation for chemical structure analysis
 4. Note that all experiments use the same cell type (HUVEC)
 5. Compound experiments are fewer but larger than gene experiments
+
+_Note: These insights are based on SQL analysis of the metadata file. For detailed queries and full results, see the `rxrx3_metadata_analysis.sql` file._
