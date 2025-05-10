@@ -58,6 +58,7 @@ extension: stringwithdots
 stringwithdash: (string | "-")+
 stringwithdots: (string | ".")+
 stringwithdashcommaspace: (string | "-" | "_" | "," | " ")+
+```
 
 Observations
 	•	Repeated single‐character tokens (e.g. DIGIT~2) force the parser to collect lists of ["0","1"] that must be joined in the transformer.
@@ -70,6 +71,7 @@ Recommendations: What Belongs in the Lexer
 
 Move all fixed‑format, context‑free patterns into single regex tokens. This reduces parse‑tree complexity and eliminates the need to .join() character lists in the transformer.
 
+```
 // ── Lexer Tokens ──
 
 %import common.LETTER
@@ -91,6 +93,7 @@ CHANNEL:   /[A-Za-z0-9-]+/       // channel names, e.g. “Alexa-488”
 STRING_CSPACE: /[A-Za-z0-9\-, ]+/
 // (Allows letters, digits, dash, comma, space)
 
+```
 
 ⸻
 
@@ -98,6 +101,7 @@ Recommendations: What Belongs in the Parser
 
 Keep hierarchical and context‑sensitive rules in the parser. Use the lexer tokens as building blocks.
 
+```
 // ── Parser Rules ──
 
 start: "/"? dataset_id "/" source_id "/" _root_dir
@@ -159,7 +163,7 @@ cycle_id:      CYCLE
 well_id:       WELL
 site_id:       SITE
 _timestamp:    TIMESTAMP
-
+```
 
 ⸻
 
@@ -167,6 +171,7 @@ Revised Grammar Skeleton
 
 Putting lexer and parser sections together:
 
+```
 // ── Lexer (tokens) ──
 %import common.LETTER
 %import common.DIGIT
@@ -193,7 +198,7 @@ _root_dir: batch_id "/" (
 )
 _images_root_dir:  "images"i "/" plate_id "/" _plate_root_dir
 … (as detailed above)
-
+```
 
 ⸻
 
